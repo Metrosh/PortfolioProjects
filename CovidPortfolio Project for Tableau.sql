@@ -1,4 +1,7 @@
---Queries used for Tableau project
+--This dataset was downloaded 2/22/23 from the public dataset available here: https://ourworldindata.org/coronavirus. This original dataset contains 259,147 rows and 67 columns of data.
+--This dataset was separated into two separate excel files to track deaths and vaccination records separately and then later joined using SQL to perform some of these queries using SQL Server 2022.
+
+--These initial four queries were used to generate a presentation of covid numbers as of 2/22/23 available here: https://public.tableau.com/shared/BYW8T5T9J?:display_count=n&:origin=viz_share_link
 
 -- 1
 --Return the total cases, deaths, and a calculated death percentage from coviddeaths table while also removing unwanted location descriptors within the dataset (to avoid duplicate information)
@@ -13,7 +16,7 @@ ORDER BY
 	total_deaths
 
 --2
---Return the location & total deaths belonging to each location from coviddeaths table, avoiding unwanted location descriptors within the dataset (to avoid duplicate info) sorted in descending order by total death count
+--Return the continent & total deaths belonging to each continent from coviddeaths table, avoiding unwanted location & continent descriptors within the dataset (to avoid duplicate info) sorted in descending order by total death count
 SELECT
 	[continent],
 	SUM(CAST(new_deaths AS BIGINT)) AS totaldeathcount
@@ -63,7 +66,7 @@ GROUP BY
 ORDER BY percentpopulationinfected DESC
 
 
---additional queries not used for tableau
+--These additional queries were not used in the tableau presentation
 
 --1
 SELECT 
