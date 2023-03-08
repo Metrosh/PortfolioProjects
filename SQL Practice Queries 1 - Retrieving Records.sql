@@ -1,5 +1,38 @@
 --Retrieving Records
 
+DROP TABLE IF EXISTS dept
+CREATE TABLE dept
+	(deptno int, dname varchar(255), loc varchar(255))
+INSERT INTO dept
+	(deptno, dname, loc)
+VALUES
+	('10','ACCOUNTING','NEW YORK'),
+	('20','RESEARCH','DALLAS'),
+	('30','SALES','CHICAGO'),
+	('40','OPERATIONS','BOSTON')
+
+DROP TABLE IF EXISTS emp
+CREATE TABLE emp
+	(empno INT, ename varchar(255), job varchar(255), mgr INT, hiredate date, sal INT, comm INT, deptno INT) 
+INSERT INTO emp
+	(empno, ename, job, mgr, hiredate, sal, comm, deptno)
+VALUES
+	('7369','SMITH','CLERK','7902','12-17-2005','800','0','20'),
+	('7499','ALLEN','SALESMAN','7698','2-20-2006','1600','300','30'),
+	('7521','WARD','SALESMAN','7698','2-22-2006','1250','500','30'),
+	('7566','JONES','MANAGER','7839','4-2-2006','2975','0','20'),
+	('7654','MARTIN','SALESMAN','7698','9-29-2006','1250','1400','30'),
+	('7698','BLAKE','MANAGER','7839','5-1-2006','2850','0','30'),
+	('7782','CLARK','MANAGER','7839','6-9-2006','2450','0','10'),
+	('7788','SCOTT','ANALYST','7566','12-9-2007','3000','0','20'),
+	('7839','KING','PRESIDENT','0','11-17-2006','5000','0','10'),
+	('7844','TURNER','SALESMAN','7698','9-8-2006','1500','0','30'),
+	('7876','ADAMS','CLERK','7788','1-12-2008','1100','0','20'),
+	('7900','JAMES','CLERK','7698','12-3-2006','950','0','30'),
+	('7902','FORD','ANALYST','7566','12-3-2006','3000','0','20'),
+	('7934','MILLER','CLERK','7782','1-23-2007','1300','0','10')
+
+
 --1
 --You have a table and want to see all of the data in it.
 
