@@ -119,16 +119,15 @@ WHERE
 --3 - Finding rows in common between two tables.
 --You want to find common rows between two tables, but there are multiple columns on which you can join. 
 --Let's first create a new view:
-CREATE VIEW V
-AS
-SELECT
-	ename,
-	job,
-	sal
-FROM
-	emp
-WHERE
-	job = 'CLERK'
+CREATE VIEW V AS
+	SELECT
+		ename,
+		job,
+		sal
+	FROM
+		emp
+	WHERE
+		job = 'CLERK'
 SELECT 
 	*
 FROM
@@ -160,7 +159,7 @@ JOIN V ON (
 	e.ename = v.ename 
 	AND e.job = v.job 
 	AND e.sal = v.sal
-    )
+)
 --When performing joins, you must consider the proper columns to join in order to return correct results. This is especially important when rows can have common values for some columns while having different values for others.
 --the set operation INTERSECT will return rows common to both row sources. When using INTERSECT, you are required to compare the same number of items having the same data type, from two tables.
 --When working with set operations, keep in mind that, by default, duplicate rows will not be returned.
@@ -217,23 +216,14 @@ LEFT OUTER JOIN emp e ON
 --Let's first add a new table:
 DROP TABLE IF EXISTS EMP_BONUS
 CREATE TABLE EMP_BONUS
-	(EMPNO numeric,
-	RECEIVED datetime,
-	[TYPE] numeric)
+	(EMPNO numeric,	RECEIVED datetime, [TYPE] numeric)
 INSERT INTO EMP_BONUS
-	(EMPNO,
-	RECEIVED,
-	[TYPE])
+	(EMPNO,	RECEIVED,[TYPE])
 VALUES
-	('7369',
-	'3-14-2005',
-	'1'),
-	('7900',
-	'3-14-2005',
-	'2'),
-	('7788',
-	'3-14-2005',
-	'3')
+	('7369','3-14-2005','1'),
+	('7900','3-14-2005','2'),
+	('7788','3-14-2005','3')
+	
 SELECT * FROM EMP_BONUS
 --Great - now we start with this query:
 SELECT
@@ -345,21 +335,20 @@ FROM
         comm,
         deptno
 ) e
-WHERE NOT
-    EXISTS(
+WHERE NOT EXISTS(
     SELECT NULL
-FROM
-    (
-    SELECT
-        v.empno,
-        v.ename,
-        v.job,
-        v.mgr,
-        v.hiredate,
-        v.sal,
-        v.comm,
-        v.deptno,
-        COUNT(*) AS CNT
+	FROM
+	    (
+	    SELECT
+      	  v.empno,
+      	  v.ename,
+      	  v.job,
+      	  v.mgr,
+     	   v.hiredate,
+      	  v.sal,
+     	   v.comm,
+      	  v.deptno,
+      	  COUNT(*) AS CNT
     FROM
         v
     GROUP BY
@@ -473,13 +462,9 @@ WHERE V.empno is null
 --some employees have more than one bonus, and the join between table emp and emp_bonus is causing incorrect values to be returned by the aggregate function sum.
 DROP TABLE IF EXISTS EMP_BONUS
 CREATE TABLE emp_bonus
-	(empno varchar(255), 
-	received datetime, 
-	[type] int)
+	(empno varchar(255), received datetime, [type] int)
 INSERT INTO emp_bonus
-	(empno, 
-	received, 
-	[type])
+	(empno, received, [type])
 VALUES 
 	('7934','3-17-2005','1'), 
 	('7934','2-15-2005','2'), 
@@ -495,10 +480,10 @@ SELECT
 	e.sal,
 	e.deptno,
 	e.sal * CASE 
-				WHEN eb.[type] = 1 THEN .1
-				WHEN eb.[type] = 2 THEN .2
-				ELSE .3
-			END AS bonus
+			WHEN eb.[type] = 1 THEN .1
+			WHEN eb.[type] = 2 THEN .2
+			ELSE .3
+		END AS bonus
 FROM
 	emp e,
 	emp_bonus eb
@@ -512,11 +497,11 @@ SELECT
 	SUM(bonus) AS total_bonus
 FROM (
 	SELECT
-	e.empno,
-	e.ename,
-	e.sal,
-	e.deptno,
-	e.sal * CASE 
+		e.empno,
+		e.ename,
+		e.sal,
+		e.deptno,
+		e.sal * CASE 
 				WHEN eb.[type] = 1 THEN .1
 				WHEN eb.[type] = 2 THEN .2
 				ELSE .3
@@ -565,13 +550,9 @@ GROUP BY deptno
 --First, let's modify the emp_bonus table:
 DROP TABLE IF EXISTS emp_bonus
 CREATE TABLE emp_bonus
-	(empno varchar(255), 
-	received datetime, 
-	[type] int)
+	(empno varchar(255), received datetime, [type] int)
 INSERT INTO emp_bonus
-	(empno, 
-	received, 
-	[type])
+	(empno, received, [type])
 VALUES 
 	('7934','3-17-2005','1'), 
 	('7934','2-15-2005','2')
@@ -588,11 +569,11 @@ FROM (
 		e.sal,
 		e.deptno,
 		e.sal * CASE
-					WHEN eb.[type] IS NULL THEN 0
-					WHEN eb.[type] = 1 THEN .1
-					WHEN eb.[type] = 2 THEN .2
-					ELSE .3
-				END AS bonus
+				WHEN eb.[type] IS NULL THEN 0
+				WHEN eb.[type] = 1 THEN .1
+				WHEN eb.[type] = 2 THEN .2
+				ELSE .3
+			END AS bonus
 	FROM
 		emp e 
 	LEFT OUTER JOIN 
@@ -611,10 +592,10 @@ SELECT
 	d.deptno,
 	d.total_sal,
 	SUM(e.sal * CASE
-					WHEN eb.[type] = 1 THEN .1
-					WHEN eb.[type] = 2 THEN .2
-					ELSE .3
-				END) AS total_bonus
+			WHEN eb.[type] = 1 THEN .1
+			WHEN eb.[type] = 2 THEN .2
+			ELSE .3
+		END) AS total_bonus
 FROM
 	emp e,
 	emp_bonus eb,
